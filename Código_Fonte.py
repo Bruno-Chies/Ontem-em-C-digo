@@ -2,30 +2,38 @@ import feedparser
 import ssl
 import time
 from datetime import datetime
-
-noticias_hoje = []
-feeds = []
-
-if hasattr(ssl, "_create_unverified_context"):
-  ssl._create_default_https_context = ssl._create_unverified_context
-feed_tecnoblog= feedparser.parse('https://tecnoblog.net/feed/')
-feed_canaltech = feedparser.parse('https://canaltech.com.br/feed/')
-feeds.append(feed_tecnoblog)
-feeds.append(feed_canaltech)
-
-for feed in feeds:
-  for noticia in feed.entries:
-    data_noticia = datetime(*noticia.published_parsed[:6]).date()
-  if data_noticia == datetime.now().date():
-    noticias_hoje.append(noticia)
-
-for noticia in noticias_hoje:
-    data_pub = datetime(*noticia.published_parsed[:6]).date()
-    print(f"Título: {noticia.title}")
-    print(f"Link: {noticia.link}")
-    print(f"Data de Publicação: {data_pub}")
-    print(f"Resumo: {noticia.summary}\n")
+import Funçoes
 
 
+while True:
+  feeds = []
+  noticias_hoje = []
+  try:
+    if hasattr(ssl, "_create_unverified_context"):
+      ssl._create_default_https_context = ssl._create_unverified_context
+    Funçoes.acrescentarblog('https://tecnoblog.net/feed/', feeds)
+    print(f"Tecnoblog carregou: {len(feeds[0].entries)} notícias")
 
-time.sleep(3600)
+    Funçoes.acrescentarblog('https://canaltech.com.br/feed/', feeds)
+    print(f"Canaltech carregou: {len(feeds[1].entries)} notícias")
+
+    Funçoes.acrescentarblog('https://www.infoq.com/br/feed/', feeds)
+    print(f"InfoQ carregou: {len(feeds[2].entries)} notícias")
+
+    for feed in feeds:
+      for noticia in feed.entries:
+        data_noticia = Funçoes.obter_data_noticia(noticia)
+        if data_noticia == datetime.now().date():
+          noticias_hoje.append(noticia)
+
+    for noticia in noticias_hoje:
+        data_pub = Funçoes.obter_data_noticia(noticia)
+        print(f"Título: {noticia.title}")
+        print(f"Link: {noticia.link}")
+        print(f"Data de Publicação: {data_pub}")
+        print(f"Resumo: {noticia.summary}\n")
+  except Exception as e:
+    print(f"Ocorreu um erro: {e}")
+
+
+  time.sleep(3600)
