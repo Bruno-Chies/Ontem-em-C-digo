@@ -1,9 +1,7 @@
-import feedparser
 import ssl
 import time
 from datetime import datetime
-import Funçoes
-
+import Funcoes
 
 while True:
   feeds = []
@@ -11,23 +9,23 @@ while True:
   try:
     if hasattr(ssl, "_create_unverified_context"):
       ssl._create_default_https_context = ssl._create_unverified_context
-    Funçoes.acrescentarblog('https://tecnoblog.net/feed/', feeds)
+    Funcoes.acrescentarblog('https://tecnoblog.net/feed/', feeds)
     print(f"Tecnoblog carregou: {len(feeds[0].entries)} notícias")
 
-    Funçoes.acrescentarblog('https://canaltech.com.br/feed/', feeds)
+    Funcoes.acrescentarblog('https://canaltech.com.br/feed/', feeds)
     print(f"Canaltech carregou: {len(feeds[1].entries)} notícias")
 
-    Funçoes.acrescentarblog('https://www.infoq.com/br/feed/', feeds)
+    Funcoes.acrescentarblog('https://www.infoq.com/br/feed/', feeds)
     print(f"InfoQ carregou: {len(feeds[2].entries)} notícias")
 
     for feed in feeds:
       for noticia in feed.entries:
-        data_noticia = Funçoes.obter_data_noticia(noticia)
+        data_noticia = Funcoes.obter_data_noticia(noticia)
         if data_noticia == datetime.now().date():
           noticias_hoje.append(noticia)
 
     for noticia in noticias_hoje:
-        data_pub = Funçoes.obter_data_noticia(noticia)
+        data_pub = Funcoes.obter_data_noticia(noticia)
         print(f"Título: {noticia.title}")
         print(f"Link: {noticia.link}")
         print(f"Data de Publicação: {data_pub}")
