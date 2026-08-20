@@ -1,4 +1,3 @@
-
 def obter_data_noticia(noticia):
     from datetime import datetime
     # Tenta pegar a data de publicação padrão
@@ -12,4 +11,9 @@ def obter_data_noticia(noticia):
     return None
 def acrescentarblog(url_blog, list_feeds):
     import feedparser
-    list_feeds.append(feedparser.parse(url_blog))
+    import requests
+    resposta = requests.get(url_blog, verify=False)
+    if resposta.status_code == 200:
+        print(f"Status do site: {resposta.status_code}")
+        list_feeds.append(feedparser.parse(resposta.text))
+    
