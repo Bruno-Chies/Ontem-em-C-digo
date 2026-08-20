@@ -7,13 +7,7 @@ def obter_data_noticia(noticia):
     # Se não existir, tenta a data de atualização
     if hasattr(noticia, "updated_parsed") and noticia.updated_parsed:
         return datetime(*noticia.updated_parsed[:6]).date()
-        
     return None
 def acrescentarblog(url_blog, list_feeds):
     import feedparser
-    import requests
-    resposta = requests.get(url_blog, verify=False)
-    if resposta.status_code == 200:
-        print(f"Status do site: {resposta.status_code}")
-        list_feeds.append(feedparser.parse(resposta.text))
-    
+    list_feeds.append(feedparser.parse(url_blog))
