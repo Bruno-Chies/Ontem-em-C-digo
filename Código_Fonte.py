@@ -11,11 +11,11 @@ while True:
       ssl._create_default_https_context = ssl._create_unverified_context
     Funcoes.acrescentarblog('https://tecnoblog.net/feed/', feeds)
     if len(feeds) > 1:
-      print(f"Canaltech carregou: {len(feeds[1].entries)} notícias")
+      print(f"Tecnoblog carregou: {len(feeds[1].entries)} notícias")
     else:
-      print("Canaltech não retornou dados.")
+      print("Tecnoblog não retornou dados.")
 
-    Funcoes.acrescentarblog('https://canaltech.com.br/feed/', feeds)
+    Funcoes.acrescentarblog('https://canaltech.com.br/rss/', feeds)
     if len(feeds) > 1:
       print(f"Canaltech carregou: {len(feeds[1].entries)} notícias")
     else:
