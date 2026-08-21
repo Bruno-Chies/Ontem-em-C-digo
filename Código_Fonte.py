@@ -10,22 +10,8 @@ while True:
     if hasattr(ssl, "_create_unverified_context"):
       ssl._create_default_https_context = ssl._create_unverified_context
     Funcoes.acrescentarblog('https://tecnoblog.net/feed/', feeds)
-    if len(feeds) > 1:
-      print(f"Tecnoblog carregou: {len(feeds[1].entries)} notícias")
-    else:
-      print("Tecnoblog não retornou dados.")
-
     Funcoes.acrescentarblog('https://canaltech.com.br/rss/', feeds)
-    if len(feeds) > 1:
-      print(f"Canaltech carregou: {len(feeds[1].entries)} notícias")
-    else:
-      print("Canaltech não retornou dados.")
-
-    Funcoes.acrescentarblog('https://www.infoq.com/br/feed/', feeds)
-    if len(feeds) > 2:
-      print(f"InfoQ carregou: {len(feeds[2].entries)} notícias")
-    else:
-      print("InfoQ não retornou dados.")
+    Funcoes.acrescentarblog('https://www.infoq.com/br/development/', feeds)
 
     for feed in feeds:
       for noticia in feed.entries:
