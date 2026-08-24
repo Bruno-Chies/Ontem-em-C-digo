@@ -1,12 +1,22 @@
 def obter_data_noticia(noticia):
-    from datetime import datetime
+    from datetime import datetime, timezone, timedelta
     # Tenta pegar a data de publicação padrão
+    tempo_parsed = None
     if hasattr(noticia, "published_parsed") and noticia.published_parsed:
-        return datetime(*noticia.published_parsed[:6]).date()
-    
-    # Se não existir, tenta a data de atualização
-    if hasattr(noticia, "updated_parsed") and noticia.updated_parsed:
-        return datetime(*noticia.updated_parsed[:6]).date()
+        tempo_parsed = noticia.published_parsed
+    elif hasattr(noticia, "updated_parsed") and noticia.updated_parsed:
+        tempo_parsed = noticia.updated_parsed
+        
+    if tempo_parsed:
+        # 1. Cria o datetime em UTC usando timezone.utc (nativo e seguro)
+        dt_utc = datetime(*tempo_parsed[:6], tzinfo=timezone.utc)
+        
+        # 2. Como o horário oficial do Brasil (Brasília) é UTC-3, 
+        # aplicamos o deslocamento fixo diretamente:
+        fuso_brasil = timezone(timedelta(hours=-3))
+        dt_brasil = dt_utc.astimezone(fuso_brasil)
+        
+        return dt_brasil.date()
     return None
 def acrescentarblog(url_blog, list_feeds):
     import feedparser

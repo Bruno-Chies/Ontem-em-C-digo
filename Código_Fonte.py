@@ -11,7 +11,7 @@ while True:
       ssl._create_default_https_context = ssl._create_unverified_context
     Funcoes.acrescentarblog('https://tecnoblog.net/feed/', feeds)
     Funcoes.acrescentarblog('https://canaltech.com.br/rss/', feeds)
-    Funcoes.acrescentarblog('https://www.infoq.com/br/development/', feeds)
+    Funcoes.acrescentarblog('https://www.infoq.com/feed/', feeds)
 
     for feed in feeds:
       for noticia in feed.entries:
