@@ -12,6 +12,10 @@ while True:
     Funcoes.acrescentarblog('https://tecnoblog.net/feed/', feeds)
     Funcoes.acrescentarblog('https://canaltech.com.br/rss/', feeds)
     Funcoes.acrescentarblog('https://www.infoq.com/feed/', feeds)
+    Funcoes.acrescentarblog('https://www.wired.com/feed/rss', feeds)
+    Funcoes.acrescentarblog('https://techcrunch.com/feed/', feeds)
+    Funcoes.acrescentarblog('https://www.theverge.com/rss/index.xml', feeds)
+    Funcoes.acrescentarblog('https://feeds.arstechnica.com/arstechnica/index', feeds)
 
     for feed in feeds:
       for noticia in feed.entries:
