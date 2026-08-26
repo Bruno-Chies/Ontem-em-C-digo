@@ -1,7 +1,6 @@
 from google import genai
-client = genai.Client()
-response = client.models.generate_content(
-model="gemini-2.5-flash",
-contents="Olá!",
-)
-print(response.text)
+# Certifique-se de que a chave está inteira e dentro das aspas duplas
+client = genai.Client(api_key="")
+resposta = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents="Olá!",)
